@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/04 10:32:24 by ecardoua          #+#    #+#             */
+/*   Updated: 2026/11/04 10:32:38 by ecardoua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cube.h"
 
 void	key_hook(int key, void *param)
@@ -14,7 +26,7 @@ void	window_hook(int key, void *param)
 
 void	key_press(int key, void *_player)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = &((t_cube *)_player)->player;
 	if (key == W)
@@ -40,7 +52,7 @@ void	key_press(int key, void *_player)
 
 void	key_release(int key, void *_player)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = &((t_cube *)_player)->player;
 	if (key == W)

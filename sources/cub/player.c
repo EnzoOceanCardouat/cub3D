@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/04 10:34:54 by ecardoua          #+#    #+#             */
+/*   Updated: 2026/11/04 10:36:01 by ecardoua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cube.h"
 
-void init_pos_player(t_player *player, t_cube *game)
+void	init_pos_player(t_player *player, t_cube *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (game->map[i])
@@ -11,10 +23,11 @@ void init_pos_player(t_player *player, t_cube *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'E' || game->map[i][j] == 'W')
+			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
+					|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				player->x = ((j * BLOCK) + BLOCK) - BLOCK/2;
-				player->y = ((i * BLOCK) + BLOCK) - BLOCK/2;
+				player->x = ((j * BLOCK) + BLOCK) - BLOCK / 2;
+				player->y = ((i * BLOCK) + BLOCK) - BLOCK / 2;
 				player->spawn_direction = game->map[i][j];
 			}
 			j++;
@@ -34,7 +47,6 @@ void	init_player(t_player *player, t_cube *game)
 		player->angle = M_PI;
 	else if (player->spawn_direction == 'E')
 		player->angle = 0;
-
 	player->w = false;
 	player->s = false;
 	player->a = false;
@@ -45,155 +57,71 @@ void	init_player(t_player *player, t_cube *game)
 	player->m = false;
 }
 
+void	w_s_move(t_player *plyr, t_cube *game)
+{
+	if (plyr->w)
+	{
+		plyr->var.new_x = plyr->x + plyr->var.cos_angle * plyr->var.speed;
+		plyr->var.new_y = plyr->y + plyr->var.sin_angle * plyr->var.speed;
+		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		{
+			plyr->x = plyr->var.new_x;
+			plyr->y = plyr->var.new_y;
+		}
+	}
+	if (plyr->s)
+	{
+		plyr->var.new_x = plyr->x - plyr->var.cos_angle * plyr->var.speed;
+		plyr->var.new_y = plyr->y - plyr->var.sin_angle * plyr->var.speed;
+		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		{
+			plyr->x = plyr->var.new_x;
+			plyr->y = plyr->var.new_y;
+		}
+	}
+}
+
+void	a_d_move(t_player *plyr, t_cube *game)
+{
+	if (plyr->d)
+	{
+		plyr->var.new_x = plyr->x - plyr->var.sin_angle * plyr->var.speed;
+		plyr->var.new_y = plyr->y + plyr->var.cos_angle * plyr->var.speed;
+		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		{
+			plyr->x = plyr->var.new_x;
+			plyr->y = plyr->var.new_y;
+		}
+	}
+	if (plyr->a)
+	{
+		plyr->var.new_x = plyr->x + plyr->var.sin_angle * plyr->var.speed;
+		plyr->var.new_y = plyr->y - plyr->var.cos_angle * plyr->var.speed;
+		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		{
+			plyr->x = plyr->var.new_x;
+			plyr->y = plyr->var.new_y;
+		}
+	}
+}
+
 void	move_player(t_player *player, t_cube game)
 {
-	float	speed = 1.5;
-	float	angle_speed = 0.075;
-	float	cos_angle;
-	float	sin_angle;
-	float	new_x;
-	float	new_y;
+	double	dt;
 
+	dt = get_dt();
+	player->var.speed = 50 * dt;
+	player->var.angle_speed = 2 * dt;
 	if (player->left)
-		player->angle -= angle_speed;
+		player->angle -= player->var.angle_speed;
 	if (player->right)
-		player->angle += angle_speed;
+		player->angle += player->var.angle_speed;
 	if (player->angle > 2 * M_PI)
 		player->angle -= 2 * M_PI;
 	else if (player->angle < 0)
 		player->angle += 2 * M_PI;
-
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
-
-	if (player->w)
-	{
-		new_x = player->x + cos_angle * speed;
-		new_y = player->y + sin_angle * speed;
-		if (!touch(new_x, new_y, &game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-	if (player->s)
-	{
-		new_x = player->x - cos_angle * speed;
-		new_y = player->y - sin_angle * speed;
-		if (!touch(new_x, new_y, &game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-	if (player->d)
-	{
-		new_x = player->x - sin_angle * speed;
-		new_y = player->y + cos_angle * speed;
-		if (!touch(new_x, new_y, &game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-	if (player->a)
-	{
-		new_x = player->x + sin_angle * speed;
-		new_y = player->y - cos_angle * speed;
-		if (!touch(new_x, new_y, &game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-}
-
-float distance(float x, float y)
-{
-	return (sqrt(x * x + y * y));
-}
-
-float fix_distance(float x2, float x1, float y2, float y1, t_cube *game)
-{
-	float delta_x = x2 - x1;
-	float delta_y = y2 - y1;
-	float angle = atan2(delta_y, delta_x) - game->player.angle;
-	float fix_dist = distance(delta_x, delta_y) * cos(angle);
-	return (fix_dist);
-}
-
-void draw_line(t_player *player, t_cube *game, float start_x, int i)
-{
-	float cos_angle = cos(start_x);
-	float sin_angle = sin(start_x);
-	float ray_x = player->x;
-	float ray_y = player->y;
-
-	while (!touch(ray_x, ray_y, game))
-	{
-		if (DEBUG == 1)
-			mlx_pixel_put(game->mlx, game->window, ray_x, ray_y, (mlx_color){.rgba = 0xFFFFFFFF});
-		ray_x += cos_angle;
-		ray_y += sin_angle;
-	}
-
-	if (DEBUG == 1)
-		return;
-
-	float dist = fix_distance(ray_x, player->x,ray_y, player->y, game);
-	float height = (BLOCK / dist) * (WIDTH / 2);
-	float top = (HEIGHT - height) / 2;
-
-	float wall_x;
-	int t = get_tex_info(ray_x, ray_y, cos_angle, sin_angle, &wall_x);
-
-	int tex_x = (int)(wall_x / BLOCK * game->texture_width);
-	if (tex_x >= game->texture_width)
-		tex_x = game->texture_width - 1;
-
-	int y = (top < 0) ? 0 : (int)top;
-	int end = (top + height > HEIGHT) ? HEIGHT : (int)(top + height);
-
-	int c = 0;
-	while (c < y)
-	{
-		mlx_pixel_put(game->mlx, game->window, i, c, game->ceiling);
-		c++;
-	}
-	while (y < end)
-	{
-		int tex_y = (int)((y - top) * game->texture_height / height);
-		if (tex_y >= game->texture_height)
-			tex_y = game->texture_height - 1;
-		mlx_color color = mlx_get_image_pixel(game->mlx, game->texture[t], tex_x, tex_y);
-		mlx_pixel_put(game->mlx, game->window, i, y, color);
-		y++;
-	}
-	while (end < HEIGHT)
-	{
-		mlx_pixel_put(game->mlx, game->window, i, end, game->floor);
-		end++;
-	}
-}
-
-void	loop_draw_player(void *_game)
-{
-	move_player(&((t_cube *)_game)->player, *(t_cube *)_game);
-	mlx_clear_window(((t_cube *)_game)->mlx, ((t_cube *)_game)->window, (mlx_color){.rgba = 0x00000000});
-	if (DEBUG == 1)
-	{
-		draw_map((t_cube *)_game);
-		draw_square(((t_cube *)_game)->player.x, ((t_cube *)_game)->player.y, 5, 0xFF00FFFF, (t_cube *)_game);
-	}
-	float fraction = M_PI / 3 / WIDTH;
-	float start_x = ((t_cube *)_game)->player.angle - M_PI / 6;
-	int i = 0;
-	while (i < WIDTH)
-	{
-		draw_line(&((t_cube *)_game)->player, (t_cube *)_game, start_x, i);
-		start_x += fraction;
-		i++;
-	}
-	if (((t_cube *)_game)->player.m == true)
-		draw_mini_map((t_cube *)_game);
+	player->var.cos_angle = cos(player->angle);
+	player->var.sin_angle = sin(player->angle);
+	w_s_move(player, &game);
+	a_d_move(player, &game);
 }
