@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:44:39 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/04 10:56:00 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/11 14:57:19 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,24 @@ int	get_tex_info(t_cube *game)
 
 void	freebox(t_cube *game)
 {
+	int	i;
+
+	i = 0;
 	if (game->map)
 		free(game->map);
-	if (game->textu[0])
-		mlx_destroy_image(game->mlx, game->textu[0]);
-	if (game->textu[1])
-		mlx_destroy_image(game->mlx, game->textu[1]);
-	if (game->textu[2])
-		mlx_destroy_image(game->mlx, game->textu[2]);
-	if (game->textu[3])
-		mlx_destroy_image(game->mlx, game->textu[3]);
+	while (i < 4)
+	{
+		if (game->textu[i])
+			mlx_destroy_image(game->mlx, game->textu[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 30)
+	{
+		if (game->ufo[i])
+			mlx_destroy_image(game->mlx, game->ufo[i]);
+		i++;
+	}
 	if (game->door)
 		mlx_destroy_image(game->mlx, game->door);
 	if (game->window)

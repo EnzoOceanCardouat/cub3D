@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/04 11:00:36 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/11 14:43:13 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define BLOCK 24
-
-# define DEBUG 0 // Switch 2D == 1 and 3D == 0
-
 # define W 26
 # define A 4
 # define S 22
@@ -33,9 +30,8 @@
 # define LEFT 80
 # define RIGHT 79
 # define M 16
-
-# define IMG_WIDTH 80
-# define IMG_HEIGHT 80
+# define TXT_WIDTH 80
+# define TXT_HEIGHT 80
 
 typedef struct s_var
 {
@@ -62,6 +58,8 @@ typedef struct s_var
 	float	angle_speed;
 	int		new_x;
 	int		new_y;
+
+	int g;
 }	t_var;
 
 typedef struct s_player
@@ -90,8 +88,12 @@ typedef struct s_cube
 	char		**map;
 	mlx_image	textu[4];
 	mlx_image	door;
+	mlx_image	ufo[30];
 	int			texture_width;
 	int			texture_height;
+	int			ufo_width;
+	int			ufo_height;
+	int			time;
 	mlx_color	ceiling;
 	mlx_color	floor;
 	mlx_color	wall;

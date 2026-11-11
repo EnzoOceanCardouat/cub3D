@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/29 17:26:36 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/03 13:22:46 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/06 14:36:59 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char **init_map(void)
 	map[0] = "1111111111111111";
 	map[1] = "1000000000000001";
 	map[2] = "1001110000010001";
-	map[3] = "1000010011000101";
+	map[3] = "10000D0011000101";
 	map[4] = "1001110000010001";
 	map[5] = "100000000011D111";
 	map[6] = "100000N000000001";
@@ -32,7 +32,7 @@ char **init_map(void)
 
 void	init_cube(t_cube *game)
 {
-	mlx_window_create_info info = {0};
+	mlx_window_create_info	info = {0};
 
 	info.title = "Cub3D";
 	info.height = HEIGHT;
@@ -49,10 +49,12 @@ void	init_cube(t_cube *game)
 	mlx_put_image_to_window(game->mlx, game->window, game->image, 0, 0);
 	game->map = init_map(); //change
 	load_texture(game);
-	game->ceiling = (mlx_color){.rgba = 0x448EE4FF};
-	game->floor = (mlx_color){.rgba = 0x00C04BFF};
+	game->time = 0;
+	game->ceiling = (mlx_color){.rgba = 0x090909FF}; //change
+	game->floor = (mlx_color){.rgba = 0x222021FF}; //  change
 	init_player(&game->player, game);
 	mlx_set_fps_goal(game->mlx, 30);
+	game->var.g = 0;
 }
 
 int	main()

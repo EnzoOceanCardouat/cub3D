@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:14:08 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/04 10:56:54 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/11 15:20:43 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,13 @@ void	loop_game(void *_game)
 	}
 	if (((t_cube *)_game)->player.m == true)
 		draw_mini_map((t_cube *)_game);
+	if (((t_cube *)_game)->player.w || ((t_cube *)_game)->player.s || ((t_cube *)_game)->player.a || ((t_cube *)_game)->player.d)
+	{
+		((t_cube *)_game)->time++;
+		if (((t_cube *)_game)->time % 1 == 0)
+			((t_cube *)_game)->var.g = (((t_cube *)_game)->var.g + 1) % 30;
+		mlx_put_image_to_window(((t_cube *)_game)->mlx, ((t_cube *)_game)->window, ((t_cube *)_game)->ufo[((t_cube *)_game)->var.g], 0, 0);
+	}
+	else
+		mlx_put_image_to_window(((t_cube *)_game)->mlx, ((t_cube *)_game)->window, ((t_cube *)_game)->ufo[((t_cube *)_game)->var.g], 0, 0);
 }

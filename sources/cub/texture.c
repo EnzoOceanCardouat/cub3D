@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:37:34 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/04 10:42:39 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/11 14:42:56 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,34 @@
 
 void	load_texture(t_cube *game)
 {
-	char	*path[4];
-	char	*door_path;
+	const char	*wall_path[] = {"texture/Moon.png", "texture/Mars.png",
+		"texture/Jupiter.png", "texture/Neptune.png"};
+	const char	*door_path = "texture/BlackHole.png";
+	const char	*ufo_path[] = {"texture/0.png", "texture/1.png", "texture/2.png",
+		"texture/3.png", "texture/4.png", "texture/5.png", "texture/6.png",
+		"texture/7.png", "texture/8.png","texture/9.png", "texture/10.png",
+		"texture/11.png", "texture/12.png","texture/13.png","texture/14.png",
+		"texture/15.png", "texture/16.png", "texture/17.png", "texture/18.png",
+		"texture/19.png","texture/19.png","texture/20.png","texture/21.png",
+		"texture/22.png","texture/23.png","texture/24.png","texture/25.png",
+		"texture/26.png","texture/27.png","texture/28.png", "texture/28.png"};
 	int		i;
 
-	path[0] = "texture/NO.png";
-	path[1] = "texture/SO.png";
-	path[2] = "texture/EA.png";
-	path[3] = "texture/WE.png";
-	door_path = "texture/D.png";
 	i = 0;
 	while (i < 4)
 	{
-		game->textu[i] = mlx_new_image_from_file(game->mlx, path[i],
+		game->textu[i] = mlx_new_image_from_file(game->mlx, wall_path[i],
 				&game->texture_width, &game->texture_height);
 		if (!game->textu[i])
+			freebox(game);
+		i++;
+	}
+	i = 0;
+	while (i < 30)
+	{
+		game->ufo[i] = mlx_new_image_from_file(game->mlx, ufo_path[i],
+				&game->ufo_width, &game->ufo_height);
+		if (!game->ufo[i])
 			freebox(game);
 		i++;
 	}
