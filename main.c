@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/29 17:26:36 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/06 14:36:59 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/12 10:09:15 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	main()
 	t_cube game;
 
 	init_cube(&game);
+	mlx_mouse_hide(game.mlx);
+	mlx_mouse_move(game.mlx, game.window, WIDTH / 2, HEIGHT / 2);
 	mlx_on_event(game.mlx, game.window, MLX_KEYDOWN, key_hook, (void *)game.mlx);
 	mlx_on_event(game.mlx, game.window, MLX_WINDOW_EVENT, window_hook, (void *)&game);
 	mlx_on_event(game.mlx, game.window, MLX_KEYDOWN, key_press, (void *)&game);

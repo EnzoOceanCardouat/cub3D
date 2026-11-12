@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:34:54 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/04 10:36:01 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/12 11:11:56 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,15 @@ void	a_d_move(t_player *plyr, t_cube *game)
 void	move_player(t_player *player, t_cube game)
 {
 	double	dt;
+	int		mx;
+	int		my;
 
 	dt = get_dt();
 	player->var.speed = 50 * dt;
 	player->var.angle_speed = 2 * dt;
+	mlx_mouse_get_pos(game.mlx, &mx, &my);
+	player->angle += (mx - WIDTH / 2) * MOUSE_SENS;
+	mlx_mouse_move(game.mlx, game.window, WIDTH / 2, HEIGHT / 2);
 	if (player->left)
 		player->angle -= player->var.angle_speed;
 	if (player->right)

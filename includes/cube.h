@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/11 14:43:13 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/12 11:12:05 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define M 16
 # define TXT_WIDTH 80
 # define TXT_HEIGHT 80
+# define MOUSE_SENS 0.0005
 
 typedef struct s_var
 {
@@ -58,8 +59,7 @@ typedef struct s_var
 	float	angle_speed;
 	int		new_x;
 	int		new_y;
-
-	int g;
+	int		g;
 }	t_var;
 
 typedef struct s_player
