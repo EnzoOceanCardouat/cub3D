@@ -6,15 +6,15 @@ CFLAGS = -Wall -Wextra -Werror -g
 VPATH = sources/cub:sources/parsing
 INC_DIR = includes/
 INC_MACROLIBXDIR = libs/MacroLibX/includes/
-INC_LIBFTDIR = libs/libft
+INC_LIBFTDIR = libs/Libft
 OBJ_DIR = objects/
 
 MACROLIBXDIR:= libs/MacroLibX/
-LIBFTDIR:= libs/libft/
+LIBFTDIR:= libs/Libft/
 MACROLIBX:=$(addprefix $(MACROLIBXDIR), libmlx.so)
 LIBFT:=$(addprefix $(LIBFTDIR), libft.a)
 
-SRC_FILES := game.c hook.c map.c player.c rayCasting.c texture.c utils.c error.c gnl.c info_file.c map.c parsing.c main.c
+SRC_FILES := game.c hook.c map.c player.c rayCasting.c texture.c utils.c error.c gnl.c info_file.c map_parsing.c parsing.c main.c ft_split_set.c
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
@@ -49,8 +49,8 @@ $(OBJ_DIR).running:
 
 $(NAME) : $(OBJ) $(LIBFT) $(MACROLIBX)
 	@touch $(OBJ_DIR).compiled
-	@echo "𖤐⭒๋࣭ ⭑ Compilation of Minishell finished !"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lm -lSDL2 $(LIBFT) $(MACROLIBX)
+	@echo "𖤐⭒๋࣭ ⭑ Compilation of Minishell finished !"
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)

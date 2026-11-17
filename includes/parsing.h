@@ -42,4 +42,6 @@ int		check_map(t_info_data *data);
 void	ft_exit(int	error_code, t_info_data *data);
 void	free_map(t_info_data *data);
 
+char	**ft_split_set(const char *str, const char *set);
+
 #endif

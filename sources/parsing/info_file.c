@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:51:24 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 19:32:44 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	fill_color(mlx_color *data_color, char *str)
 	char	**colors;
 
 	i = 0;
-	colors = ft_split(str + 2, ",\n");
+	colors = ft_split_set(str + 2, ",\n");
 	if (!colors)
 		return (1);
 	while (colors[i])
