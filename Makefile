@@ -10,11 +10,8 @@ LIBFT_DIR = $(INC_DIR)libft/
 MACROLIBX_DIR = MacroLibX/
 PARSER_DIR := parsing/
 
-INC_FILE_CUBE = cube.h
-INC_CUBE = $(addprefix $(INC_DIR), $(INC_FILE_CUBE))
-INC_FILE_PARS = parsing.h
-INC_PARS = $(addprefix $(INC_DIR), $(INC_FILE_PARS))
-LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
+MACROLIBXDIR:= libs/MacroLibX/
+MACROLIBX:=$(addprefix $(MACROLIBXDIR), libmlx.so)
 
 SRC_FILES := main.c \
 			 $(SRC_DIR)$(PARSER_DIR)gnl.c \
