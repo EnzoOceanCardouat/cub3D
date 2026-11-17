@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 10:43:52 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/10/27 11:10:14 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 18:26:54 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 int main(int ac, char **av)
 {
-	int	fd;
+	// NE PAS OUBLIER L'EXTENSION "bonus" sur les fichiers !
+	t_info_data	*data;
 
 	if (ac != 2)
 		return (1);
@@ -25,12 +26,9 @@ int main(int ac, char **av)
 		//Error
 		return (1);
 	}
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-	{
-		//Error
+	data = ft_calloc(1, sizeof(t_info_data));
+	if (!data)
 		return (1);
-	}
-	parsing(fd);
-	return (0);
+	parsing(av[1], data);
+	ft_exit(0, data);
 }

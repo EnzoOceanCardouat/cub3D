@@ -1,25 +1,45 @@
 #ifndef PARSING_H
-#define PARSING_H
+# define PARSING_H
 
-#include "MacroLibX/includes/mlx.h"
-#include <fcntl.h>
-#include "libft/libft.h"
+# include "MacroLibX/includes/mlx.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include "libft/libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
-char	*get_next_line(int fd);
-int		parsing(int fd);
-
 typedef struct	s_info_data
 {
+	char		player;
 	char		*north_texture;
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	char		*door_texture;
+	char		**map;
+	char		**space_map;
+	size_t		map_length;
+	size_t		map_width;
+	bool		celling_set;
+	bool		floor_set;
+	int			header_nb_rows;
+	int			file_nb_total_rows;
 	mlx_color	floor_color;
-	mlx_color	cellar_color;
+	mlx_color	ceiling_color;
 }	t_info_data;
+
+char	*get_next_line(int fd);
+void	parsing(char *file, t_info_data *data);
+int		pars_texture(t_info_data *data, char *str);
+int		pars_flr_clr(t_info_data *data, char *str);
+void	error_message(int error_mng);
+int		save_map(char *file, t_info_data *data);
+int		copy_map(t_info_data *data);
+int		check_map(t_info_data *data);
+
+void	ft_exit(int	error_code, t_info_data *data);
+void	free_map(t_info_data *data);
 
 #endif

@@ -1,0 +1,13 @@
+NO ./resources/images/dice_wall.png
+SO ./resources/images/grid_of_cards_wall.png
+WE ./resources/images/rocks_wall.png
+EA ./resources/images/brick_play_wall.png
+DO ./resources/images/true_door.png
+
+F 220,100,0
+C 225,30,0
+
+111111
+10N001
+10X001
+111111

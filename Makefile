@@ -1,38 +1,87 @@
+NAME = cub3D
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-NAME = Cube
 
-OBJ_DIR = obj
+OBJ_DIR = objects/
+SRC_DIR = sources/
+INC_DIR = includes/
+LIBFT_DIR = $(INC_DIR)libft/
+MACROLIBX_DIR = MacroLibX/
+PARSER_DIR := parsing/
 
-MACROLIBXDIR:= MacroLibX/
-MACROLIBX:=$(addprefix $(MACROLIBXDIR), libmlx.so)
+INC_FILE_CUBE = cube.h
+INC_CUBE = $(addprefix $(INC_DIR), $(INC_FILE_CUBE))
+INC_FILE_PARS = parsing.h
+INC_PARS = $(addprefix $(INC_DIR), $(INC_FILE_PARS))
+LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
-INCLUDES=  -I$(MACROLIBX)
+SRC_FILES := main.c \
+			 $(SRC_DIR)$(PARSER_DIR)gnl.c \
+			 $(SRC_DIR)$(PARSER_DIR)parsing.c \
+			 $(SRC_DIR)$(PARSER_DIR)error.c \
+			 $(SRC_DIR)$(PARSER_DIR)info_file.c \
+			 $(SRC_DIR)$(PARSER_DIR)map.c \
 
-SOURCES = test.c
+OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC_FILES))
 
-OBJECTS = $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
-all: $(MACROLIBX) $(NAME)
+all : $(OBJ_DIR).compiled $(NAME)
 
-$(NAME): $(OBJECTS) $(MACROLIBX)
-	$(CC) $(CFLAGS) $(OBJECTS) $(MACROLIBX)
+$(OBJ_DIR).compiled:
+	@echo ""
+	@printf "%s\n" '   /\\,/\\,                   ,,          ,, ,, '
+	@printf "%s\n" "  /| || ||   '        '       ||          || || "
+	@printf "%s\n" '  || || ||  \\ \\/\\ \\  _-_, ||/\\  _-_  || || '
+	@printf "%s\n" '  ||=|= ||  || || || || ||_.  || || || \\ || || '
+	@printf "%s\n" ' ~|| || ||  || || || ||  ~ || || || ||/   || || '
+	@printf "%s\n" '  |, \\,\\, \\ \\ \\ \\ ,-_-  \\ |/ \\,/  \\ \\ '
+	@printf "%s\n" ' _-                             _/              '
+	@echo ""
+	@echo ""
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -lSDL2
+$(OBJ_DIR).running:
+	@mkdir -p $(OBJ_DIR)
+	@touch $(OBJ_DIR).running
+	@echo ""
+	@printf "%s\n" '   /\\,/\\,                   ,,          ,, ,, '
+	@printf "%s\n" "  /| || ||   '        '       ||          || || "
+	@printf "%s\n" '  || || ||  \\ \\/\\ \\  _-_, ||/\\  _-_  || || '
+	@printf "%s\n" '  ||=|= ||  || || || || ||_.  || || || \\ || || '
+	@printf "%s\n" ' ~|| || ||  || || || ||  ~ || || || ||/   || || '
+	@printf "%s\n" '  |, \\,\\, \\ \\ \\ \\ ,-_-  \\ |/ \\,/  \\ \\ '
+	@printf "%s\n" ' _-                             _/              '
+	@echo ""
+	@echo ""
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+$(NAME) : $(OBJ) $(LIBFT)
+	@touch $(OBJ_DIR).compiled
+	@echo "𖤐⭒๋࣭ ⭑ Compilation of Minishell finished !"
+	@${CC} ${CFLAGS} -I ${INC_DIR} -o ${NAME} ${OBJ} ${LIBFT}
 
-clean:
-	rm -rf $(OBJ_DIR)
-	rm -f *.o
-	@make -C $(MACROLIBXDIR) clean
+${OBJ_DIR}%.o: ${SRC_DIR}%.c
+	@mkdir -p $(dir $@)
+	@${CC} ${CFLAGS} -I $(INC_DIR) -c $< -o $@
 
-fclean: clean
-	rm -f $(NAME)
-	@make -C $(MACROLIBXDIR) clean
+$(LIBFT) :
+	@echo "𖤐⭒๋࣭ ⭑ Compilation of libft finished !"
+	@make --no-print-directory -C $(LIBFT_DIR)
 
-re: fclean all
+$(OBJ_DIR) :
+	@mkdir $(OBJ_DIR)
 
-.PHONY: all clean fclean re
+clean : $(OBJ_DIR).running
+	@echo "👉🗑️ Cleaning all .o files !"
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
+
+fclean : $(OBJ_DIR).running clean
+	@echo "💥 Deleting Minishell"
+	@rm -rf $(NAME)
+	@echo "💥 Deleting Libft"
+	@rm -rf $(LIBFT)
+
+re : $(OBJ_DIR).running fclean $(NAME)
+	@rm -f $(OBJ_DIR).running
+
+.PHONY : all clean fclean re

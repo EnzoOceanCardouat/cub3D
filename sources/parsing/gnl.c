@@ -6,12 +6,21 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:26:56 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/10/27 10:38:44 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 08:41:49 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 #include "../../includes/libft/libft.h"
+
+static char	*join_free(char *s1, char *s2)
+{
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	free(s1);
+	return (res);
+}
 
 static char	*storer(char *buffer, int fd)
 {
@@ -21,7 +30,10 @@ static char	*storer(char *buffer, int fd)
 	reader = 1;
 	stock = malloc((size_t)BUFFER_SIZE + 1);
 	if (!stock)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	while (!ft_strchr(buffer, '\n') && reader > 0)
 	{
 		reader = read(fd, stock, BUFFER_SIZE);
@@ -34,7 +46,13 @@ static char	*storer(char *buffer, int fd)
 		if (reader == 0)
 			break ;
 		stock[reader] = '\0';
-		buffer = ft_strjoin(buffer, stock);
+		//buffer = ft_strjoin(buffer, stock);
+		buffer = join_free(buffer, stock);
+		if (!buffer)
+		{
+			free(stock);
+			return (NULL);
+		}
 	}
 	free(stock);
 	return (buffer);
@@ -83,7 +101,10 @@ static char	*buffer_updater(char *buffer)
 	}
 	updated_buffer = ft_calloc(sizeof(char), ft_strlen(buffer) - i + 1);
 	if (!updated_buffer)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	j = 0;
 	i++;
 	while (buffer[i])

@@ -6,67 +6,101 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:05:46 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/10/27 11:15:19 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 18:48:39 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int parsing(int fd)
+/**
+ * @brief Check in the struct data if all paths and the color of floor/ceiling
+ * are correctly registred.
+ *
+ * @param data The structure of all the parsing system.
+ * @return int: 1 if a path/color is missed, 0 if everything is fine.
+ */
+int	check_ressources(t_info_data *data)
 {
-	char		*str;
-	t_info_data	*data;
-	char		**floor;
-	char		**ceiling;
+	if (!data->north_texture || !data->south_texture
+		|| !data->east_texture || !data->west_texture)
+	{
+		printf("Error: One texure path is missing or misspelled.\n");
+		return (1);
+	}
+	if (data->celling_set < 1 || data->floor_set < 1)
+	{
+		printf("Error: Color indication of the celling/floor is missing.\n");
+		return (1);
+	}
+	return (0);
+}
 
-	int fd = open("test.txt", O_RDONLY);
-	data = ft_calloc(1, sizeof(t_info_data));
-
-	// protection fd
+static void	free_gnl(int fd)
+{
+	char	*str;
 
 	str = get_next_line(fd);
 	while (str)
 	{
-		if (ft_strncmp("NO ", str, 3) == 0)
-		{
-			data->north_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		}
-		//else error
-		if (ft_strncmp("SO ", str, 3) == 0)
-			data->south_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (ft_strncmp("WE ", str, 3) == 0)
-			data->west_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (ft_strncmp("EA ", str, 3) == 0)
-			data->east_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (ft_strncmp("F ", str, 2) == 0)
-		{
-			/* TODO Error managing:
-				- Checking the validity of the atoi
-			*/
-			floor = ft_split(str + 2, ',');
-			data->floor_color.r = ft_atoi(floor[0]);
-			data->floor_color.g = ft_atoi(floor[1]);
-			data->floor_color.b = ft_atoi(floor[2]);
-		}
-		if (ft_strncmp("C ", str, 2) == 0)
-		{
-			ceiling = ft_split(str + 2, ',');
-			data->cellar_color.r = ft_atoi(ceiling[0]);
-			data->cellar_color.g = ft_atoi(ceiling[1]);
-			data->cellar_color.b = ft_atoi(ceiling[2]);
-		}
+		free(str);
 		str = get_next_line(fd);
 	}
-	printf("NORTH: |%s|\n", data->north_texture);
-	printf("SOUTH: |%s|\n", data->south_texture);
-	printf("WEST: |%s|\n", data->west_texture);
-	printf("EAST: |%s|\n\n", data->east_texture);
+}
 
-	printf("FLOOR R : |%i|\n", data->floor_color.r);
-	printf("FLOOR G : |%i|\n", data->floor_color.g);
-	printf("FLOOR B : |%i|\n\n", data->floor_color.b);
+int	filling_structure(t_info_data *data, int fd)
+{
+	char*	str;
+	int		color_ret_code;
+	int		texture_ret_code;
 
-	printf("CELLAR R : |%i|\n", data->cellar_color.r);
-	printf("CELLAR G : |%i|\n", data->cellar_color.g);
-	printf("CELLAR B : |%i|\n", data->cellar_color.b);
+	str = get_next_line(fd);
+	while (str)
+	{
+		color_ret_code = pars_flr_clr(data, str);
+		if (color_ret_code > 0)
+		{
+			free(str);
+			free_gnl(fd);
+			return (color_ret_code);
+		}
+		texture_ret_code = pars_texture(data, str);
+		if (texture_ret_code > 0)
+		{
+			free(str);
+			free_gnl(fd);
+			return (texture_ret_code);
+		}
+		if (ft_strncmp("\n", str, ft_strlen(str)) == 0)
+			++data->header_nb_rows;
+		++data->file_nb_total_rows;
+		free(str);
+		str = get_next_line(fd);
+	}
+	return (0);
+}
+
+void	parsing(char *file, t_info_data *data)
+{
+	int			file_fd;
+	int			error_code;
+
+	file_fd = open(file, O_RDONLY);
+	if (file_fd < 0)
+	{
+		//Error
+		ft_exit(1, data);
+	}
+	error_code = filling_structure(data, file_fd);
+	if (error_code > 0)
+	{
+		close(file_fd);
+		ft_exit(error_code, data);
+	}
+	close(file_fd);
+	save_map(file, data);
+	if (check_ressources(data) == 1)
+		ft_exit(10, data);
+	copy_map(data);
+	if (check_map(data))
+		ft_exit(10, data);
 }
