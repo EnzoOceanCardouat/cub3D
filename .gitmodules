@@ -1,3 +1,6 @@
 [submodule "libs/MacroLibX"]
 	path = libs/MacroLibX
 	url = https://github.com/seekrs/MacroLibX.git
+[submodule "libs/Libft"]
+	path = libs/Libft
+	url = git@github.com:ManoPotame/Libft.git
