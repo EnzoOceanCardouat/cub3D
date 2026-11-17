@@ -3,25 +3,21 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
-OBJ_DIR = objects/
-SRC_DIR = sources/
+VPATH = sources/cub:sources/parsing
 INC_DIR = includes/
-LIBFT_DIR = $(INC_DIR)libft/
-MACROLIBX_DIR = MacroLibX/
-PARSER_DIR := parsing/
+INC_MACROLIBXDIR = libs/MacroLibX/includes/
+INC_LIBFTDIR = libs/libft
+OBJ_DIR = objects/
 
 MACROLIBXDIR:= libs/MacroLibX/
+LIBFTDIR:= libs/libft/
 MACROLIBX:=$(addprefix $(MACROLIBXDIR), libmlx.so)
+LIBFT:=$(addprefix $(LIBFTDIR), libft.a)
 
-SRC_FILES := main.c \
-			 $(SRC_DIR)$(PARSER_DIR)gnl.c \
-			 $(SRC_DIR)$(PARSER_DIR)parsing.c \
-			 $(SRC_DIR)$(PARSER_DIR)error.c \
-			 $(SRC_DIR)$(PARSER_DIR)info_file.c \
-			 $(SRC_DIR)$(PARSER_DIR)map.c \
+SRC_FILES := game.c hook.c map.c player.c rayCasting.c texture.c utils.c error.c gnl.c info_file.c map.c parsing.c main.c
 
-OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC_FILES))
-
+OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
+OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
 all : $(OBJ_DIR).compiled $(NAME)
 
@@ -51,18 +47,22 @@ $(OBJ_DIR).running:
 	@echo ""
 	@echo ""
 
-$(NAME) : $(OBJ) $(LIBFT)
+$(NAME) : $(OBJ) $(LIBFT) $(MACROLIBX)
 	@touch $(OBJ_DIR).compiled
 	@echo "𖤐⭒๋࣭ ⭑ Compilation of Minishell finished !"
-	@${CC} ${CFLAGS} -I ${INC_DIR} -o ${NAME} ${OBJ} ${LIBFT}
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lm -lSDL2 $(LIBFT) $(MACROLIBX)
 
-${OBJ_DIR}%.o: ${SRC_DIR}%.c
-	@mkdir -p $(dir $@)
-	@${CC} ${CFLAGS} -I $(INC_DIR) -c $< -o $@
+$(OBJ_DIR)%.o: %.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -I$(INC_MACROLIBXDIR) -I$(LIBFTDIR) -c $< -o $@
 
 $(LIBFT) :
+	@make -sC $(LIBFTDIR)
 	@echo "𖤐⭒๋࣭ ⭑ Compilation of libft finished !"
-	@make --no-print-directory -C $(LIBFT_DIR)
+
+$(MACROLIBX) :
+	@make -sC $(MACROLIBXDIR) -j
+	@echo "𖤐⭒๋࣭ ⭑ Compilation of MacroLibX finished !"
 
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
@@ -70,13 +70,15 @@ $(OBJ_DIR) :
 clean : $(OBJ_DIR).running
 	@echo "👉🗑️ Cleaning all .o files !"
 	@rm -rf $(OBJ_DIR)
-	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
+	@$(MAKE) -sC $(LIBFTDIR) clean
+	@$(MAKE) -sC $(MACROLIBXDIR) clean
 
 fclean : $(OBJ_DIR).running clean
 	@echo "💥 Deleting Minishell"
 	@rm -rf $(NAME)
+	@$(MAKE) -sC $(LIBFTDIR) fclean
+	@$(MAKE) -sC $(MACROLIBXDIR) fclean
 	@echo "💥 Deleting Libft"
-	@rm -rf $(LIBFT)
 
 re : $(OBJ_DIR).running fclean $(NAME)
 	@rm -f $(OBJ_DIR).running
