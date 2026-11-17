@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:14:08 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/12 11:14:00 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/17 19:11:30 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube.h"
+#include "cube.h"
 
 static float	distance(float x, float y)
 {

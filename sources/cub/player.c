@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:34:54 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/12 11:11:56 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube.h"
+#include "cube.h"
 
 void	init_pos_player(t_player *player, t_cube *game)
 {

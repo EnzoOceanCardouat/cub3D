@@ -6,12 +6,12 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:26:56 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 08:41:49 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 19:13:57 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
-#include "../../includes/libft/libft.h"
+#include "parsing.h"
+#include "libft.h"
 
 static char	*join_free(char *s1, char *s2)
 {

@@ -6,11 +6,11 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:05:46 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 18:48:39 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "parsing.h"
 
 /**
  * @brief Check in the struct data if all paths and the color of floor/ceiling

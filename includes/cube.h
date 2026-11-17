@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/12 11:12:05 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/17 19:20:15 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-# include "../libs/MacroLibX/includes/mlx.h"
+# include "mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
@@ -119,9 +119,6 @@ void	move_player(t_player *player, t_cube game);
 /* rayCasting.c */
 bool	touch(float px, float py, t_cube *game);
 bool	p_close_to_door(t_cube *game, int m_y, int m_x);
-
-/* main.c */
-void	draw_mini_map(t_cube *game);
 
 /* texture.c */
 void	load_texture(t_cube *game);

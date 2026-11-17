@@ -1,10 +1,10 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "MacroLibX/includes/mlx.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

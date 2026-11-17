@@ -6,11 +6,11 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:51:24 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 18:51:09 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "parsing.h"
 
 /**
  * @brief Register the path of every direction in the data structure

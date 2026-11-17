@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rayCasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:36:27 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/04 10:37:25 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube.h"
+#include "cube.h"
 
 bool	p_close_to_door(t_cube *game, int m_y, int m_x)
 {
