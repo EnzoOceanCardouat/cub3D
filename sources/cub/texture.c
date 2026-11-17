@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:37:34 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 20:06:16 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	load_texture(t_cube *game)
 {
-	const char	*wall_path[] = {"texture/Moon.png", "texture/Mars.png",
-		"texture/Jupiter.png", "texture/Neptune.png"};
-	const char	*door_path = "texture/BlackHole.png";
 	const char	*ufo_path[] = {"texture/0.png", "texture/1.png", "texture/2.png",
 		"texture/3.png", "texture/4.png", "texture/5.png", "texture/6.png",
 		"texture/7.png", "texture/8.png","texture/9.png", "texture/10.png",
@@ -28,15 +25,6 @@ void	load_texture(t_cube *game)
 	int		i;
 
 	i = 0;
-	while (i < 4)
-	{
-		game->textu[i] = mlx_new_image_from_file(game->mlx, wall_path[i],
-				&game->texture_width, &game->texture_height);
-		if (!game->textu[i])
-			freebox(game);
-		i++;
-	}
-	i = 0;
 	while (i < 30)
 	{
 		game->ufo[i] = mlx_new_image_from_file(game->mlx, ufo_path[i],
@@ -45,7 +33,23 @@ void	load_texture(t_cube *game)
 			freebox(game);
 		i++;
 	}
-	game->door = mlx_new_image_from_file(game->mlx, door_path,
+	game->textu[0] = mlx_new_image_from_file(game->mlx, game->north_texture,
+			&game->texture_width, &game->texture_height);
+	if (!game->textu[0])
+		freebox(game);
+	game->textu[1] = mlx_new_image_from_file(game->mlx, game->south_texture,
+			&game->texture_width, &game->texture_height);
+	if (!game->textu[1])
+		freebox(game);
+	game->textu[2] = mlx_new_image_from_file(game->mlx, game->west_texture,
+			&game->texture_width, &game->texture_height);
+	if (!game->textu[2])
+		freebox(game);
+	game->textu[3] = mlx_new_image_from_file(game->mlx, game->east_texture,
+			&game->texture_width, &game->texture_height);
+	if (!game->textu[3])
+		freebox(game);
+	game->door = mlx_new_image_from_file(game->mlx, game->door_texture,
 			&game->texture_width, &game->texture_height);
 	if (!game->door)
 		freebox(game);

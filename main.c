@@ -6,32 +6,14 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 10:43:52 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:23:21 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 20:03:13 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "parsing.h"
 
-char **init_map(void)
-{
-	char **map;
-
-	map = malloc(10 * sizeof(char *));
-	map[0] = "1111111111111111";
-	map[1] = "1000000000000001";
-	map[2] = "1001110000010001";
-	map[3] = "10000D0011000101";
-	map[4] = "1001110000010001";
-	map[5] = "100000000011D111";
-	map[6] = "100000N000000001";
-	map[7] = "1000000000000001";
-	map[8] = "1111111111111111";
-	map[9] = NULL;
-	return (map);
-}
-
-void	init_cube(t_cube *game)
+static void	init_cube(t_cube *game, t_info_data *data)
 {
 	mlx_window_create_info	info = {0};
 
@@ -48,12 +30,17 @@ void	init_cube(t_cube *game)
 	if (!game->image)
 		freebox(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->image, 0, 0);
-	game->map = init_map(); //change
-	load_texture(game);
+	game->map = data->map;
 	game->time = 0;
-	game->ceiling = (mlx_color){.rgba = 0x090909FF}; //change
-	game->floor = (mlx_color){.rgba = 0x222021FF}; //  change
+	game->ceiling = data->ceiling_color;
+	game->floor = data->floor_color;
+	game->north_texture = data->north_texture;
+	game->south_texture = data->south_texture;
+	game->west_texture = data->west_texture;
+	game->east_texture = data->east_texture;
+	game->door_texture = data->door_texture;
 	init_player(&game->player, game);
+	load_texture(game);
 	mlx_set_fps_goal(game->mlx, 30);
 	game->var.g = 0;
 }
@@ -72,7 +59,7 @@ int	main(int ac, char **av)
 		return (1);
 	parsing(av[1], data);
 
-	init_cube(&game);
+	init_cube(&game, data);
 	mlx_mouse_hide(game.mlx);
 	mlx_mouse_move(game.mlx, game.window, WIDTH / 2, HEIGHT / 2);
 	mlx_on_event(game.mlx, game.window, MLX_KEYDOWN, key_hook, (void *)game.mlx);

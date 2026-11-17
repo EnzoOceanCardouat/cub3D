@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 19:20:15 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/17 20:05:27 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ typedef struct s_cube
 	void		*image;
 	t_player	player;
 	char		**map;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	char		*door_texture;
 	mlx_image	textu[4];
 	mlx_image	door;
 	mlx_image	ufo[30];
