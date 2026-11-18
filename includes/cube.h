@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 20:05:27 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 14:06:31 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <sys/time.h>
+# include "parsing.h"
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -103,6 +104,7 @@ typedef struct s_cube
 	mlx_color	floor;
 	mlx_color	wall;
 	t_var		var;
+	t_info_data	*data;
 }	t_cube;
 
 /* hook.c */
@@ -116,6 +118,7 @@ void	draw_square(int size, int color_switch, t_cube *game);
 int		get_tex_info(t_cube *game);
 void	freebox(t_cube *game);
 double	get_dt(void);
+bool	file_exists(const char *path);
 
 /* player.c */
 void	init_player(t_player *player, t_cube *game);

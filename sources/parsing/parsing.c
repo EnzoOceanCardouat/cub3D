@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:05:46 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 16:29:52 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,15 @@ static void	free_gnl(int fd)
 	}
 }
 
+void	free_str_fd(char **str, int fd)
+{
+	free(*str);
+	free_gnl(fd);
+}
+
 int	filling_structure(t_info_data *data, int fd)
 {
-	char*	str;
+	char	*str;
 	int		color_ret_code;
 	int		texture_ret_code;
 
@@ -58,18 +64,14 @@ int	filling_structure(t_info_data *data, int fd)
 	{
 		color_ret_code = pars_flr_clr(data, str);
 		if (color_ret_code > 0)
-		{
-			free(str);
-			free_gnl(fd);
+			free_str_fd(&str, fd);
+		if (color_ret_code > 0)
 			return (color_ret_code);
-		}
 		texture_ret_code = pars_texture(data, str);
 		if (texture_ret_code > 0)
-		{
-			free(str);
-			free_gnl(fd);
+			free_str_fd(&str, fd);
+		if (texture_ret_code > 0)
 			return (texture_ret_code);
-		}
 		if (ft_strncmp("\n", str, ft_strlen(str)) == 0)
 			++data->header_nb_rows;
 		++data->file_nb_total_rows;
@@ -86,10 +88,7 @@ void	parsing(char *file, t_info_data *data)
 
 	file_fd = open(file, O_RDONLY);
 	if (file_fd < 0)
-	{
-		//Error
 		ft_exit(1, data);
-	}
 	error_code = filling_structure(data, file_fd);
 	if (error_code > 0)
 	{
