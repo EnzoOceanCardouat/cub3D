@@ -1,60 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:55:58 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 16:37:44 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
 #include <stdio.h>
-
-int	copy_map(t_info_data *data)
-{
-	size_t	i;
-	size_t	j;
-	size_t	len;
-
-	data->space_map = ft_calloc(data->file_nb_total_rows - data->header_nb_rows + 3, sizeof(char *));
-	if (!data->space_map)
-		return (1);
-	i = 0;
-	while (i <= data->map_length + 1)
-	{
-		data->space_map[i] = ft_calloc(data->map_width + 3, sizeof(char));
-		if (!data->space_map[i])
-			return (1);
-		if (i == 0 || i == data->map_length + 1)
-			ft_memset(data->space_map[i], ' ', data->map_width + 1);
-		else
-		{
-			len = ft_strlen(data->map[i - 1]);
-			j = 0;
-			while (j < data->map_width + 1)
-			{
-				if (j == 0 || j > len || data->map[i - 1][j - 1] == ' ')
-					data->space_map[i][j] = ' ';
-				else
-					data->space_map[i][j] = data->map[i - 1][j - 1];
-				++j;
-			}
-		}
-		++i;
-	}
-	return (0);
-}
-
-	// i = 0;
-	// while (data->space_map[i])
-	// {
-	// 	printf("MAP:|%s|\n", data->space_map[i]);
-	// 	i++;
-	// }
 
 /**
  * @brief If the current index in the array is a player (N,S,W,E) and
@@ -95,15 +52,14 @@ int	border_map(t_info_data *data, int i, int j)
 {
 	if (data->space_map[i - 1][j] == ' '
 		|| data->space_map[i + 1][j] == ' '
-			|| data->space_map[i][j - 1] == ' '
-				|| data->space_map[i][j + 1] == ' ')
-		{
-			printf("ERROR, Close the map correctly:\nCol: %d\nRow: %d\n", i, j);
-			return (1);
-		}
+		|| data->space_map[i][j - 1] == ' '
+		|| data->space_map[i][j + 1] == ' ')
+	{
+		printf("ERROR, Close the map correctly:\nCol: %d\nRow: %d\n", i, j);
+		return (1);
+	}
 	return (0);
 }
-// #TODO Finish the commenting of this function !
 
 int	is_mapable(int c)
 {
@@ -137,46 +93,5 @@ int	check_map(t_info_data *data)
 		}
 		++i;
 	}
-	return (0);
-}
-
-int	save_map(char *file, t_info_data *data)
-{
-	int		i;
-	int		fd;
-	char	*str;
-
-	i = 0;
-	fd = open(file, O_RDONLY);
-	data->map = ft_calloc(data->file_nb_total_rows - data->header_nb_rows + 1, sizeof(char *));
-	if (!data->map)
-	{
-		close(fd);
-		ft_exit(1, data);
-	}
-	str = get_next_line(fd);
-	while (str && i++ < data->header_nb_rows)
-	{
-		free(str);
-		str = get_next_line(fd);
-	}
-	i = 0;
-	while (i < data->file_nb_total_rows - data->header_nb_rows)
-	{
-		data->map[i] = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-		if (!data->map[i])
-		{
-			close(fd);
-			ft_exit(1, data);
-		}
-		ft_strlcpy(data->map[i], str, ft_strlen(str));
-		if (ft_strlen(str) > data->map_width)
-			data->map_width = ft_strlen(str);
-		++data->map_length;
-		++i;
-		free(str);
-		str = get_next_line(fd);
-	}
-	close(fd);
 	return (0);
 }

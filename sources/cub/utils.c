@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:44:39 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 14:38:57 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "parsing.h"
 
 static void	ini_d_sqr(int *i, mlx_color *gray, mlx_color *lgry, mlx_color *door)
 {
@@ -72,8 +73,6 @@ void	freebox(t_cube *game)
 	int	i;
 
 	i = 0;
-	if (game->map)
-		free(game->map);
 	while (i < 4)
 	{
 		if (game->textu[i])
@@ -95,7 +94,7 @@ void	freebox(t_cube *game)
 		mlx_destroy_image(game->mlx, game->image);
 	if (game->mlx)
 		mlx_destroy_context(game->mlx);
-	exit(1);
+	ft_exit(0, game->data);
 }
 
 double	get_dt(void)
@@ -110,4 +109,13 @@ double	get_dt(void)
 	dt = (now.tv_sec - last.tv_sec) + (now.tv_usec - last.tv_usec) / 1e6;
 	last = now;
 	return (dt);
+}
+
+bool	file_exists(const char *path)
+{
+	int fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	close(fd);
+	return (true);
 }

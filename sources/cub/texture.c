@@ -3,36 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:37:34 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 20:06:16 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 14:24:22 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	load_texture(t_cube *game)
+static void	check_files_texture(t_cube *game, const char *ufo_texture[])
 {
-	const char	*ufo_path[] = {"texture/0.png", "texture/1.png", "texture/2.png",
-		"texture/3.png", "texture/4.png", "texture/5.png", "texture/6.png",
-		"texture/7.png", "texture/8.png","texture/9.png", "texture/10.png",
-		"texture/11.png", "texture/12.png","texture/13.png","texture/14.png",
-		"texture/15.png", "texture/16.png", "texture/17.png", "texture/18.png",
-		"texture/19.png","texture/19.png","texture/20.png","texture/21.png",
-		"texture/22.png","texture/23.png","texture/24.png","texture/25.png",
-		"texture/26.png","texture/27.png","texture/28.png", "texture/28.png"};
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < 30)
-	{
-		game->ufo[i] = mlx_new_image_from_file(game->mlx, ufo_path[i],
-				&game->ufo_width, &game->ufo_height);
-		if (!game->ufo[i])
+		if (!file_exists(ufo_texture[i++]))
 			freebox(game);
-		i++;
-	}
+	if (!file_exists(game->north_texture))
+		freebox(game);
+	if (!file_exists(game->south_texture))
+		freebox(game);
+	if (!file_exists(game->east_texture))
+		freebox(game);
+	if (!file_exists(game->west_texture))
+		freebox(game);
+	if (!file_exists(game->door_texture))
+		freebox(game);
+}
+
+static void	load_wall_texture(t_cube *game)
+{
 	game->textu[0] = mlx_new_image_from_file(game->mlx, game->north_texture,
 			&game->texture_width, &game->texture_height);
 	if (!game->textu[0])
@@ -49,6 +50,31 @@ void	load_texture(t_cube *game)
 			&game->texture_width, &game->texture_height);
 	if (!game->textu[3])
 		freebox(game);
+}
+
+void	load_texture(t_cube *game)
+{
+	const char	*ufo_texture[] = {"texture/0.png", "texture/1.png",
+		"texture/2.png", "texture/3.png", "texture/4.png", "texture/5.png",
+		"texture/6.png", "texture/7.png", "texture/8.png", "texture/9.png",
+		"texture/10.png", "texture/11.png", "texture/12.png", "texture/13.png",
+		"texture/14.png", "texture/15.png", "texture/16.png", "texture/17.png",
+		"texture/18.png", "texture/19.png", "texture/19.png", "texture/20.png",
+		"texture/21.png", "texture/22.png", "texture/23.png", "texture/24.png",
+		"texture/25.png", "texture/26.png", "texture/27.png", "texture/28.png",
+		"texture/28.png"};
+	int			i;
+
+	i = 0;
+	check_files_texture(game, ufo_texture);
+	while (i < 30)
+	{
+		game->ufo[i] = mlx_new_image_from_file(game->mlx, ufo_texture[i],
+				&game->ufo_width, &game->ufo_height);
+		if (!game->ufo[i++])
+			freebox(game);
+	}
+	load_wall_texture(game);
 	game->door = mlx_new_image_from_file(game->mlx, game->door_texture,
 			&game->texture_width, &game->texture_height);
 	if (!game->door)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:51:24 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:32:44 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 16:33:45 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,61 +22,23 @@
  */
 int	pars_texture(t_info_data *data, char *str)
 {
-	if (ft_strncmp("NO ", str, 3) == 0)
+	int	status;
+
+	status = no_so_pars(data, str);
+	if (status == 2)
 	{
-		if (data->file_nb_total_rows != data->header_nb_rows)
-			return (5);
-		free(data->north_texture);
-		data->north_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (!data->north_texture)
-			return (1);
-		++data->header_nb_rows;
-		return (0);
+		status = we_ea_pars(data, str);
+		if (status == 2)
+		{
+			status = door_pars(data, str);
+			if (status != 2)
+				return (status);
+		}
+		else
+			return (status);
 	}
-	else if (ft_strncmp("SO ", str, 3) == 0)
-	{
-		if (data->file_nb_total_rows != data->header_nb_rows)
-			return (5);
-		free(data->south_texture);
-		data->south_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (!data->south_texture)
-			return (1);
-		++data->header_nb_rows;
-		return (0);
-	}
-	else if (ft_strncmp("WE ", str, 3) == 0)
-	{
-		if (data->file_nb_total_rows != data->header_nb_rows)
-			return (5);
-		free(data->west_texture);
-		data->west_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (!data->west_texture)
-			return (1);
-		++data->header_nb_rows;
-		return (0);
-	}
-	else if (ft_strncmp("EA ", str, 3) == 0)
-	{
-		if (data->file_nb_total_rows != data->header_nb_rows)
-			return (5);
-		free(data->east_texture);
-		data->east_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (!data->east_texture)
-			return (1);
-		++data->header_nb_rows;
-		return (0);
-	}
-	else if (ft_strncmp("DO ", str, 3) == 0)
-	{
-		if (data->file_nb_total_rows != data->header_nb_rows)
-			return (5);
-		free(data->door_texture);
-		data->door_texture = ft_substr(str, 3, ft_strlen(str) - 4);
-		if (!data->door_texture)
-			return (1);
-		++data->header_nb_rows;
-		return (0);
-	}
+	else
+		return (status);
 	return (-1);
 }
 
@@ -130,11 +92,12 @@ int	fill_color(mlx_color *data_color, char *str)
 	}
 	if (atoi_checker(colors[0], &data_color->r) > 0
 		|| atoi_checker(colors[1], &data_color->g) > 0
-			|| atoi_checker(colors[2], &data_color->b) > 0)
+		|| atoi_checker(colors[2], &data_color->b) > 0)
 	{
 		free_array(colors);
 		return (4);
 	}
+	data_color->a = 255;
 	free_array(colors);
 	return (0);
 }

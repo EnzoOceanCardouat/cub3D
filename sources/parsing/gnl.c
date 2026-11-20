@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:26:56 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:13:57 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 16:38:51 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "libft.h"
-
-static char	*join_free(char *s1, char *s2)
-{
-	char	*res;
-
-	res = ft_strjoin(s1, s2);
-	free(s1);
-	return (res);
-}
 
 static char	*storer(char *buffer, int fd)
 {
@@ -30,29 +21,22 @@ static char	*storer(char *buffer, int fd)
 	reader = 1;
 	stock = malloc((size_t)BUFFER_SIZE + 1);
 	if (!stock)
-	{
 		free(buffer);
+	if (!stock)
 		return (NULL);
-	}
 	while (!ft_strchr(buffer, '\n') && reader > 0)
 	{
 		reader = read(fd, stock, BUFFER_SIZE);
 		if (reader < 0)
-		{
-			free(stock);
-			free(buffer);
+			free_reader_negative(buffer, &stock);
+		if (read < 0)
 			return (NULL);
-		}
 		if (reader == 0)
 			break ;
 		stock[reader] = '\0';
-		//buffer = ft_strjoin(buffer, stock);
 		buffer = join_free(buffer, stock);
 		if (!buffer)
-		{
-			free(stock);
-			return (NULL);
-		}
+			break ;
 	}
 	free(stock);
 	return (buffer);

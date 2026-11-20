@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 10:45:41 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/18 16:39:02 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	error_message(int error_mng)
 void	free_map(t_info_data *data)
 {
 	int	i;
+
+	if (!data)
+		return ;
 	if (data->north_texture)
 		free(data->north_texture);
 	if (data->south_texture)
@@ -40,19 +43,19 @@ void	free_map(t_info_data *data)
 	if (data->door_texture)
 		free(data->door_texture);
 	i = 0;
-	while(data->map && data->map[i])
+	while (data->map && data->map[i])
 		free(data->map[i++]);
 	if (data->map)
 		free(data->map);
 	i = 0;
-	while(data->space_map && data->space_map[i])
+	while (data->space_map && data->space_map[i])
 		free(data->space_map[i++]);
 	if (data->space_map)
 		free(data->space_map);
 	free(data);
 }
 
-void	ft_exit(int	error_code, t_info_data *data)
+void	ft_exit(int error_code, t_info_data *data)
 {
 	if (error_code != 0)
 		error_message(error_code);
@@ -60,4 +63,17 @@ void	ft_exit(int	error_code, t_info_data *data)
 	exit(error_code);
 }
 
+char	*join_free(char *s1, char *s2)
+{
+	char	*res;
 
+	res = ft_strjoin(s1, s2);
+	free(s1);
+	return (res);
+}
+
+void	free_reader_negative(char *buffer, char **stock)
+{
+	free(buffer);
+	free(*stock);
+}
