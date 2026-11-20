@@ -23,34 +23,42 @@ all : $(OBJ_DIR).compiled $(NAME)
 
 $(OBJ_DIR).compiled:
 	@echo ""
-	@printf "%s\n" '   /\\,/\\,                   ,,          ,, ,, '
-	@printf "%s\n" "  /| || ||   '        '       ||          || || "
-	@printf "%s\n" '  || || ||  \\ \\/\\ \\  _-_, ||/\\  _-_  || || '
-	@printf "%s\n" '  ||=|= ||  || || || || ||_.  || || || \\ || || '
-	@printf "%s\n" ' ~|| || ||  || || || ||  ~ || || || ||/   || || '
-	@printf "%s\n" '  |, \\,\\, \\ \\ \\ \\ ,-_-  \\ |/ \\,/  \\ \\ '
-	@printf "%s\n" ' _-                             _/              '
+	@printf "%s\n" "              _    ____      _ "
+	@printf "%s\n" "             | |  |___ \    | |"
+	@printf "%s\n" "    ___ _   _| |__  __) | __| |"
+	@printf "%s\n" "   / __| | | | '_ \|__ < / _\` |"
+	@printf "%s\n" "  | (__| |_| | |_) |__) | (_| |"
+	@printf "%s\n" "   \___|\__,_|_.__/____/ \__,_|"
+	@printf "%s\n" "                               "
 	@echo ""
 	@echo ""
+
+
+
+
+
+
+
+
 
 $(OBJ_DIR).running:
 	@mkdir -p $(OBJ_DIR)
 	@touch $(OBJ_DIR).running
 	@echo ""
-	@printf "%s\n" '   /\\,/\\,                   ,,          ,, ,, '
-	@printf "%s\n" "  /| || ||   '        '       ||          || || "
-	@printf "%s\n" '  || || ||  \\ \\/\\ \\  _-_, ||/\\  _-_  || || '
-	@printf "%s\n" '  ||=|= ||  || || || || ||_.  || || || \\ || || '
-	@printf "%s\n" ' ~|| || ||  || || || ||  ~ || || || ||/   || || '
-	@printf "%s\n" '  |, \\,\\, \\ \\ \\ \\ ,-_-  \\ |/ \\,/  \\ \\ '
-	@printf "%s\n" ' _-                             _/              '
+	@printf "%s\n" "              _    ____      _ "
+	@printf "%s\n" "             | |  |___ \    | |"
+	@printf "%s\n" "    ___ _   _| |__  __) | __| |"
+	@printf "%s\n" "   / __| | | | '_ \|__ < / _\` |"
+	@printf "%s\n" "  | (__| |_| | |_) |__) | (_| |"
+	@printf "%s\n" "   \___|\__,_|_.__/____/ \__,_|"
+	@printf "%s\n" "                               "
 	@echo ""
 	@echo ""
 
 $(NAME) : $(OBJ) $(LIBFT) $(MACROLIBX)
 	@touch $(OBJ_DIR).compiled
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lm -lSDL2 $(LIBFT) $(MACROLIBX)
-	@echo "𖤐⭒๋࣭ ⭑ Compilation of Minishell finished !"
+	@echo "𖤐⭒๋࣭ ⭑ Compilation of cub3D finished !"
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
@@ -74,7 +82,7 @@ clean : $(OBJ_DIR).running
 	@$(MAKE) -sC $(MACROLIBXDIR) clean
 
 fclean : $(OBJ_DIR).running clean
-	@echo "💥 Deleting Minishell"
+	@echo "💥 Deleting cub3D"
 	@rm -rf $(NAME)
 	@$(MAKE) -sC $(LIBFTDIR) fclean
 	@$(MAKE) -sC $(MACROLIBXDIR) fclean
