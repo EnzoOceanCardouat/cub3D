@@ -14,12 +14,14 @@ LIBFTDIR:= libs/Libft/
 MACROLIBX:=$(addprefix $(MACROLIBXDIR), libmlx.so)
 LIBFT:=$(addprefix $(LIBFTDIR), libft.a)
 
-SRC_FILES := game.c hook.c map.c player.c rayCasting.c texture.c utils.c error.c gnl.c info_file.c map_parsing.c parsing.c main.c ft_split_set.c parsing_textures.c copy_map.c
+SRC_FILES := game.c hook.c map.c player.c ray_casting.c texture.c utils.c error.c gnl.c info_file.c map_parsing.c parsing.c main.c ft_split_set.c parsing_textures.c copy_map.c square.c
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
 all : $(OBJ_DIR).compiled $(NAME)
+
+bonus : all
 
 $(OBJ_DIR).compiled:
 	@echo ""

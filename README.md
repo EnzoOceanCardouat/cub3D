@@ -81,7 +81,8 @@ To walk through the map, you can use:
 
 ## 📚 Ressources
 - A quick ["guide"](https://medium.com/@digitalpoolng/42-so-long-and-thanks-for-all-the-fish-building-your-first-2d-game-in-c-ccd24034bc8b) to register the map.
--
-
-
+- RayCasting ["tutorial"](https://youtu.be/G9i78WoBBIU?si=pYP2kEnqTbRZ7isD).
+- **mbirou** and **patoupen** for their help on the parsing of the map.
+- **alexfuen** to help me understand how to do the animation and the map.
+- Claude helped with the mathematics for rendering the wall texture and the movement.
 **A special thanks to all 42 students who helped us !**

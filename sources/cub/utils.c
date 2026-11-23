@@ -6,67 +6,12 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:44:39 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/18 14:38:57 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/23 11:08:46 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "parsing.h"
-
-static void	ini_d_sqr(int *i, mlx_color *gray, mlx_color *lgry, mlx_color *door)
-{
-	*i = 0;
-	*gray = (mlx_color){.rgba = 0x808080FF};
-	*lgry = (mlx_color){.rgba = 0xD3D3D3FF};
-	*door = (mlx_color){.rgba = 0xFFCE1BFF};
-}
-
-void	draw_square(int size, int color_switch, t_cube *game)
-{
-	int			i;
-	int			j;
-	mlx_color	gray;
-	mlx_color	light_gray;
-	mlx_color	door;
-
-	ini_d_sqr(&i, &gray, &light_gray, &door);
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if (color_switch == -1)
-				mlx_pixel_put(game->mlx, game->window, game->var.x + i,
-					game->var.y + j, door);
-			else if (color_switch % 2 == 1)
-				mlx_pixel_put(game->mlx, game->window, game->var.x + i,
-					game->var.y + j, gray);
-			else
-				mlx_pixel_put(game->mlx, game->window, game->var.x + i,
-					game->var.y + j, light_gray);
-			j++;
-		}
-		i++;
-	}
-}
-
-int	get_tex_info(t_cube *game)
-{
-	float	prev_x;
-
-	prev_x = game->var.ray_x - game->var.cos_angle;
-	if ((int)(prev_x / BLOCK) != (int)(game->var.ray_x / BLOCK))
-	{
-		game->var.wall_x = fmodf(game->var.ray_y, BLOCK);
-		if (game->var.cos_angle > 0)
-			return (3);
-		return (2);
-	}
-	game->var.wall_x = fmodf(game->var.ray_x, BLOCK);
-	if (game->var.sin_angle > 0)
-		return (0);
-	return (1);
-}
 
 void	freebox(t_cube *game)
 {
@@ -113,9 +58,29 @@ double	get_dt(void)
 
 bool	file_exists(const char *path)
 {
-	int fd = open(path, O_RDONLY);
+	int	fd;
+
+	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (false);
 	close(fd);
 	return (true);
+}
+
+int	get_tex_info(t_cube *game)
+{
+	float	prev_x;
+
+	prev_x = game->var.ray_x - game->var.cos_angle;
+	if ((int)(prev_x / BLOCK) != (int)(game->var.ray_x / BLOCK))
+	{
+		game->var.wall_x = fmodf(game->var.ray_y, BLOCK);
+		if (game->var.cos_angle > 0)
+			return (3);
+		return (2);
+	}
+	game->var.wall_x = fmodf(game->var.ray_x, BLOCK);
+	if (game->var.sin_angle > 0)
+		return (0);
+	return (1);
 }
