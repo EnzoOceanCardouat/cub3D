@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/18 14:06:31 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:09:42 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ void	key_press(int key, void *_player);
 void	key_release(int key, void *_player);
 
 /* utils.c */
-void	draw_square(int size, int color_switch, t_cube *game);
 int		get_tex_info(t_cube *game);
 void	freebox(t_cube *game);
 double	get_dt(void);
 bool	file_exists(const char *path);
+void	error_file(char *path, t_cube *game);
 
 /* player.c */
 void	init_player(t_player *player, t_cube *game);
@@ -138,5 +138,8 @@ void	draw_mini_map(t_cube *game);
 
 /* game.c */
 void	loop_game(void *_game);
+
+/* square.c*/
+void	draw_square(int size, int color_switch, t_cube *game);
 
 #endif

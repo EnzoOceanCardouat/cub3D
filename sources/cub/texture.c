@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:37:34 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/18 14:24:22 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:09:02 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ static void	check_files_texture(t_cube *game, const char *ufo_texture[])
 	i = 0;
 	while (i < 30)
 		if (!file_exists(ufo_texture[i++]))
-			freebox(game);
+			error_file((char *)ufo_texture[i], game);
 	if (!file_exists(game->north_texture))
-		freebox(game);
+		error_file(game->north_texture, game);
 	if (!file_exists(game->south_texture))
-		freebox(game);
+		error_file(game->south_texture, game);
 	if (!file_exists(game->east_texture))
-		freebox(game);
+		error_file(game->east_texture, game);
 	if (!file_exists(game->west_texture))
-		freebox(game);
+		error_file(game->west_texture, game);
 	if (!file_exists(game->door_texture))
-		freebox(game);
+		error_file(game->door_texture, game);
 }
 
 static void	load_wall_texture(t_cube *game)

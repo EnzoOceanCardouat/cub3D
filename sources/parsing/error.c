@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 10:45:41 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/18 16:39:02 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:14:23 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	error_message(int error_mng)
 {
 	if (error_mng == 1)
-		printf("Allocation failed\n");
+		printf("Allocation failed.\n");
 	if (error_mng == 2)
-		printf("Color indication of the celling/floor is missing.\n");
+		printf("Color indication of the ceiling/floor is missing.\n");
 	if (error_mng == 3)
 		printf("Floor/Ceiling is not setup correctly.\n");
 	if (error_mng == 4)
 		printf("RGB color can only work between 0 and 255.\n");
 	if (error_mng == 5)
-		printf("Header can onnly be at start of config file\n");
+		printf("Header can only be at the start of a config file.\n");
 }
 
 void	free_map(t_info_data *data)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/23 13:38:24 by ecardoua          #+#    #+#             */
+/*   Updated: 2026/11/23 13:39:04 by ecardoua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
@@ -10,7 +22,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-typedef struct	s_info_data
+typedef struct s_info_data
 {
 	char		player;
 	char		*north_texture;
@@ -42,7 +54,7 @@ int		no_so_pars(t_info_data *data, char *str);
 int		we_ea_pars(t_info_data *data, char *str);
 int		door_pars(t_info_data *data, char *str);
 
-void	ft_exit(int	error_code, t_info_data *data);
+void	ft_exit(int error_code, t_info_data *data);
 void	free_map(t_info_data *data);
 void	free_reader_negative(char *buffer, char **stock);
 char	*join_free(char *s1, char *s2);
@@ -51,6 +63,5 @@ char	**ft_split_set(const char *str, const char *set);
 
 int		copy_map(t_info_data *data);
 int		save_map(char *file, t_info_data *data);
-
 
 #endif

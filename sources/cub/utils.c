@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:44:39 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/23 11:08:46 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:09:13 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,10 @@ int	get_tex_info(t_cube *game)
 	if (game->var.sin_angle > 0)
 		return (0);
 	return (1);
+}
+
+void	error_file(char *path, t_cube *game)
+{
+	printf("ERROR, %s file does not exist.\n", path);
+	freebox(game);
 }

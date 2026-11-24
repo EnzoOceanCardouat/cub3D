@@ -6,13 +6,12 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 10:43:52 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/18 14:45:46 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/23 16:16:16 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "parsing.h"
-
 
 static void	init_texture(t_cube *game, t_info_data *data)
 {
@@ -27,8 +26,9 @@ static void	init_texture(t_cube *game, t_info_data *data)
 
 static void	init_cube(t_cube *game, t_info_data *data)
 {
-	mlx_window_create_info	info = {0};
+	mlx_window_create_info	info;
 
+	ft_bzero(&info, sizeof(mlx_window_create_info));
 	info.title = "Cub3D";
 	info.height = HEIGHT;
 	info.width = WIDTH;
@@ -44,17 +44,17 @@ static void	init_cube(t_cube *game, t_info_data *data)
 	mlx_put_image_to_window(game->mlx, game->window, game->image, 0, 0);
 	game->map = data->map;
 	game->time = 0;
+	game->data = data;
 	init_texture(game, data);
 	init_player(&game->player, game);
 	load_texture(game);
 	mlx_set_fps_goal(game->mlx, 30);
-	game->data = data;
 	game->var.g = 0;
 }
 
 int	main(int ac, char **av)
 {
-	t_cube game;
+	t_cube		game;
 	t_info_data	*data;
 
 	if (ac != 2)
@@ -69,8 +69,10 @@ int	main(int ac, char **av)
 	init_cube(&game, data);
 	mlx_mouse_hide(game.mlx);
 	mlx_mouse_move(game.mlx, game.window, WIDTH / 2, HEIGHT / 2);
-	mlx_on_event(game.mlx, game.window, MLX_KEYDOWN, key_hook, (void *)game.mlx);
-	mlx_on_event(game.mlx, game.window, MLX_WINDOW_EVENT, window_hook, (void *)&game);
+	mlx_on_event(game.mlx, game.window, MLX_KEYDOWN,
+		key_hook, (void *)game.mlx);
+	mlx_on_event(game.mlx, game.window, MLX_WINDOW_EVENT,
+		window_hook, (void *)&game);
 	mlx_on_event(game.mlx, game.window, MLX_KEYDOWN, key_press, (void *)&game);
 	mlx_on_event(game.mlx, game.window, MLX_KEYUP, key_release, (void *)&game);
 	mlx_add_loop_hook(game.mlx, loop_game, &game);

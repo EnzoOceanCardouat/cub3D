@@ -4,8 +4,8 @@ WE texture/Moon.png
 EA texture/Neptune.png
 DO texture/BlackHole.png
 
-F 120,75,40
-C 212,187,137
+F 33,33,33
+C 10,10,10
 
 1111111111111111111111111
 1000000000DD0000000000001

@@ -19,14 +19,14 @@ The file must also include the colors of the floor and ceiling in RGB format (3 
 ```bash
 # An exemple of how to use the Wall textures & floor/ceiling colors:
 
-								NO path/to/texture/north.png
-								SO path/to/texture/south.png
-								WE path/to/texture/west.png
-								EA path/to/texture/east.png
-								DO path/to/texture/door.png
+NO path/to/texture/north.png
+SO path/to/texture/south.png
+WE path/to/texture/west.png
+EA path/to/texture/east.png
+DO path/to/texture/door.png
 
-								F 120,75,40
-								C 212,187,137
+F 120,75,40
+C 212,187,137
 ```
 
 ### 🗺️ Map
@@ -37,20 +37,20 @@ In addition, the map must have a player. The player must be positioned within th
 ```bash
 # A valid map Exemple:
 
-								1111111111111111111111111
-								1000000000DD0000000000001
-								10110000011111111111111111
-								100100000000000000000000111111111
-								111111111011000001110000000000001
-								1000000000110000011111D1101111111
-								11110111111111011100000010001
-								11110111111111011101010010001
-								11000000110101011100000010001
-								1000000000000000DD00000010001
-								10000000000000001101010010001
-								11000001110101011111011110N0111
-								11110111 1110101 101111010001
-								11111111 1111111 111111111111
+1111111111111111111111111
+1000000000DD0000000000001
+10110000011111111111111111
+100100000000000000000000111111111
+111111111011000001110000000000001
+1000000000110000011111D1101111111
+11110111111111011100000010001
+11110111111111011101010010001
+11000000110101011100000010001
+1000000000000000DD00000010001
+10000000000000001101010010001
+11000001110101011111011110N0111
+11110111 1110101 101111010001
+11111111 1111111 111111111111
 ```
 
 ## 📏 Instruction
@@ -71,18 +71,24 @@ After that, you can now run the program by the following command:
 ```
 
 ![cube_img](img/Screen_cub.png)
-Now, you can moove through the map !
+Now, you can move through the map !
 
 To walk through the map, you can use:
 - W: Move forward.
 - A: Move to the left.
 - S: Move to the right.
 - D: Move to the back.
+To turn the camera, you can use:
+- RIGHT ARROW: Move to the right.
+- LEFT ARROW: Move to the left.
+To open the mini map, you can use:
+- M: open the map until you repress it.
 
 ## 📚 Ressources
-- A quick ["guide"](https://medium.com/@digitalpoolng/42-so-long-and-thanks-for-all-the-fish-building-your-first-2d-game-in-c-ccd24034bc8b) to register the map.
-- RayCasting ["tutorial"](https://youtu.be/G9i78WoBBIU?si=pYP2kEnqTbRZ7isD).
-- **mbirou** and **patoupen** for their help on the parsing of the map.
+- A quick [guide](https://medium.com/@digitalpoolng/42-so-long-and-thanks-for-all-the-fish-building-your-first-2d-game-in-c-ccd24034bc8b) to register the map.
+- A raycasting [tutorial](https://youtu.be/G9i78WoBBIU?si=pYP2kEnqTbRZ7isD).
+- **mbirou**, **patoupen** and **mperrine** for their help on the parsing of the map.
 - **alexfuen** to help me understand how to do the animation and the map.
 - Claude helped with the mathematics for rendering the wall texture and the movement.
+
 **A special thanks to all 42 students who helped us !**
