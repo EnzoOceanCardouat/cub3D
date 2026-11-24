@@ -53,7 +53,7 @@ In addition, the map must have a player. The player must be positioned within th
 11111111 1111111 111111111111
 ```
 
-## 📏 Instruction
+## 📏 Instructions
 In order to launch the program correctly, you must first clone the repository:
 ```bash
 git clone https://github.com/EnzoOceanCardouat/cub3D.git
@@ -84,7 +84,7 @@ To turn the camera, you can use:
 To open the mini map, you can use:
 - M: open the map until you repress it.
 
-## 📚 Ressources
+## 📚 Resources
 - A quick [guide](https://medium.com/@digitalpoolng/42-so-long-and-thanks-for-all-the-fish-building-your-first-2d-game-in-c-ccd24034bc8b) to register the map.
 - A raycasting [tutorial](https://youtu.be/G9i78WoBBIU?si=pYP2kEnqTbRZ7isD).
 - **mbirou**, **patoupen** and **mperrine** for their help on the parsing of the map.
