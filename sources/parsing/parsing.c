@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:05:46 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/18 16:29:52 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/24 13:34:45 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	filling_structure(t_info_data *data, int fd)
 			free_str_fd(&str, fd);
 		if (texture_ret_code > 0)
 			return (texture_ret_code);
-		if (ft_strncmp("\n", str, ft_strlen(str)) == 0)
+		if (ft_strncmp("\n", str, ft_strlen(str)) == 0 && data->map_set == 0)
 			++data->header_nb_rows;
 		++data->file_nb_total_rows;
 		free(str);

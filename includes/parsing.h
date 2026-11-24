@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 13:38:24 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/23 13:39:04 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/24 12:50:46 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_info_data
 	size_t		map_length;
 	size_t		map_width;
 	bool		celling_set;
+	bool		map_set;
 	bool		floor_set;
 	int			header_nb_rows;
 	int			file_nb_total_rows;

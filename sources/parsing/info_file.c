@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:51:24 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/18 16:33:45 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/24 13:00:31 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	pars_texture(t_info_data *data, char *str)
 {
 	int	status;
 
+	if (ft_strncmp("1", str, 1) == 0)
+		data->map_set = 1;
 	status = no_so_pars(data, str);
 	if (status == 2)
 	{
