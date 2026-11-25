@@ -6,12 +6,20 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/18 16:36:36 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/24 13:34:02 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 17:24:00 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+/**
+ * @brief Copy the current string in file corresponding to a line in map.
+ *
+ * @param data The structure of all the parsing system.
+ * @param str The address of the curent string in file.
+ * @param fd The file descriptor.
+ * @param i The current index.
+ */
 static void	copy_save_map(t_info_data *data, char **str, int fd, int *i)
 {
 	data->map[*i] = ft_calloc(ft_strlen(*str) + 1, sizeof(char));
@@ -29,6 +37,13 @@ static void	copy_save_map(t_info_data *data, char **str, int fd, int *i)
 	*str = get_next_line(fd);
 }
 
+/**
+ * @brief Goes through the file while until the map is reached.
+ *
+ * @param file The name of the file .cub .
+ * @param data The structure of all the parsing system.
+ * @return int: return 0.
+ */
 int	save_map(char *file, t_info_data *data)
 {
 	int		i;
@@ -57,6 +72,15 @@ int	save_map(char *file, t_info_data *data)
 	return (0);
 }
 
+/**
+ * @brief Copy the content of 'data->map' to 'data->space_map', the first and
+ * the last part of the array are composed by space ' '.
+ *
+ * @param len the size of the 'data->map' previous string.
+ * @param i the current index of the map.
+ * @param j the current index of the map[i].
+ * @param data The structure of all the parsing system.
+ */
 static void	else_copy_map(size_t *len, size_t i, size_t *j, t_info_data *data)
 {
 	*len = ft_strlen(data->map[i - 1]);
@@ -71,6 +95,13 @@ static void	else_copy_map(size_t *len, size_t i, size_t *j, t_info_data *data)
 	}
 }
 
+/**
+ * @brief Create a copy of data->map, but bordered by space ' ', filling
+ * data->space_map.
+ *
+ * @param data The structure of all the parsing system.
+ * @return int: 1 if an allocation failed, else 0.
+ */
 int	copy_map(t_info_data *data)
 {
 	size_t	i;

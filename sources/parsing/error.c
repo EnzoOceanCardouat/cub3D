@@ -6,12 +6,17 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 10:45:41 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/25 16:23:05 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 17:50:54 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+/**
+ * @brief Send an error on the terminal depending on the error code.
+ *
+ * @param error_mng the type of error.
+ */
 void	error_message(int error_mng)
 {
 	printf("ERROR\n");
@@ -29,6 +34,11 @@ void	error_message(int error_mng)
 		printf("Map does not contain a player.\n");
 }
 
+/**
+ * @brief Free the entier data structure.
+ *
+ * @param data The structure of all the parsing system.
+ */
 void	free_map(t_info_data *data)
 {
 	int	i;
@@ -58,6 +68,12 @@ void	free_map(t_info_data *data)
 	free(data);
 }
 
+/**
+ * @brief Send an error message, free the data structure exit the program.
+ *
+ * @param error_code the type of error.
+ * @param data The structure of all the parsing system.
+ */
 void	ft_exit(int error_code, t_info_data *data)
 {
 	if (error_code != 0)

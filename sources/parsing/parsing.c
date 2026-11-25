@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:05:46 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/25 16:31:54 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 18:36:34 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ int	check_ressources(t_info_data *data)
 	return (0);
 }
 
+/**
+ * @brief Goes through the entire file and free each strings.
+ * Prevent a GNL leak.
+ *
+ * @param fd The file descriptor.
+ */
 static void	free_gnl(int fd)
 {
 	char	*str;
@@ -47,12 +53,25 @@ static void	free_gnl(int fd)
 	}
 }
 
+/**
+ * @brief Free the current str and drain the gnl's str.
+ *
+ * @param str The current string.
+ * @param fd The file descriptor.
+ */
 void	free_str_fd(char **str, int fd)
 {
 	free(*str);
 	free_gnl(fd);
 }
 
+/**
+ * @brief Filling the N,S,E,W and the Floor/Cellar textures.
+ *
+ * @param data The entire parsing structure.
+ * @param fd The file descriptor.
+ * @return int: the error code, else 0.
+ */
 int	filling_structure(t_info_data *data, int fd)
 {
 	char	*str;
@@ -81,6 +100,13 @@ int	filling_structure(t_info_data *data, int fd)
 	return (0);
 }
 
+/**
+ * @brief Register all the textures, copying the map and create a map bordered
+ * by space.
+ *
+ * @param file the file '.cub' to be parsed.
+ * @param data The entire parsing structure.
+ */
 void	parsing(char *file, t_info_data *data)
 {
 	int	file_fd;

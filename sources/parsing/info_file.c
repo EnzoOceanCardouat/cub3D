@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 16:51:24 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/24 13:00:31 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 18:02:19 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	pars_texture(t_info_data *data, char *str)
 	return (-1);
 }
 
+/**
+ * @brief Goes through the array and free it.
+ *
+ * @param array the sended array to be freed.
+ */
 void	free_array(char **array)
 {
 	int	i;
@@ -57,6 +62,14 @@ void	free_array(char **array)
 	free(array);
 }
 
+/**
+ * @brief Check if the ft_atoi return a valid number which is a number between
+ * 0 and 255.
+ *
+ * @param str The sended string which is a potential color nbr.
+ * @param color an address to the mlx_color of data structure.
+ * @return int: 1 if an error occurs, else 0.
+ */
 int	atoi_checker(char *str, uint8_t *color)
 {
 	int	is_rgb;
@@ -76,6 +89,13 @@ int	atoi_checker(char *str, uint8_t *color)
 	return (0);
 }
 
+/**
+ * @brief Filling the data->color array (RGB).
+ *
+ * @param data_color The mlx_color from data structure to be filled.
+ * @param str A string which correspond to the floor/cellar color.
+ * @return int: return 1 if an error occurs, else 0.
+ */
 int	fill_color(mlx_color *data_color, char *str)
 {
 	int		i;
