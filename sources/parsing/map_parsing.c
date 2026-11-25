@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:55:58 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/18 16:37:44 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 10:17:46 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ int	check_map(t_info_data *data)
 		}
 		++i;
 	}
+	if (!data->player)
+		ft_exit(6, data);
 	return (0);
 }

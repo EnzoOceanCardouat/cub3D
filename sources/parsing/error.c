@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 10:45:41 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/23 14:14:23 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 10:17:40 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	error_message(int error_mng)
 		printf("RGB color can only work between 0 and 255.\n");
 	if (error_mng == 5)
 		printf("Header can only be at the start of a config file.\n");
+	if (error_mng == 6)
+		printf("Map does not contain a player.\n");
 }
 
 void	free_map(t_info_data *data)
