@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 10:45:41 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/25 10:17:40 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 16:23:05 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_message(int error_mng)
 {
+	printf("ERROR\n");
 	if (error_mng == 1)
 		printf("Allocation failed.\n");
 	if (error_mng == 2)

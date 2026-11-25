@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:05:46 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/24 13:34:45 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 16:31:54 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	check_ressources(t_info_data *data)
 	if (!data->north_texture || !data->south_texture
 		|| !data->east_texture || !data->west_texture)
 	{
-		printf("Error: One texure path is missing or misspelled.\n");
+		printf("ERROR\nOne texure path is missing or misspelled.\n");
 		return (1);
 	}
 	if (data->celling_set < 1 || data->floor_set < 1)
 	{
-		printf("Error: Color indication of the celling/floor is missing.\n");
+		printf("ERROR\nColor indication of the celling/floor is missing.\n");
 		return (1);
 	}
 	return (0);
@@ -83,8 +83,8 @@ int	filling_structure(t_info_data *data, int fd)
 
 void	parsing(char *file, t_info_data *data)
 {
-	int			file_fd;
-	int			error_code;
+	int	file_fd;
+	int	error_code;
 
 	file_fd = open(file, O_RDONLY);
 	if (file_fd < 0)
@@ -98,8 +98,8 @@ void	parsing(char *file, t_info_data *data)
 	close(file_fd);
 	save_map(file, data);
 	if (check_ressources(data) == 1)
-		ft_exit(10, data);
+		ft_exit(0, data);
 	copy_map(data);
 	if (check_map(data))
-		ft_exit(10, data);
+		ft_exit(0, data);
 }

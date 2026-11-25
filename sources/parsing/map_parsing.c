@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:55:58 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/25 10:17:46 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 16:31:32 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_player(t_info_data *data, int i, int j)
 		|| data->space_map[i][j] == 'E' || data->space_map[i][j] == 'W')
 			&& data->player)
 	{
-		printf("Error, Only one player allowed:\n");
+		printf("ERROR\nOnly one player allowed:\n");
 		printf("Col: %d\nRow: %d\n", i, j);
 		printf("Invalid Player: %c\n", data->space_map[i][j]);
 		return (1);
@@ -55,22 +55,35 @@ int	border_map(t_info_data *data, int i, int j)
 		|| data->space_map[i][j - 1] == ' '
 		|| data->space_map[i][j + 1] == ' ')
 	{
-		printf("ERROR, Close the map correctly:\nCol: %d\nRow: %d\n", i, j);
+		printf("ERROR\nClose the map correctly:\nCol: %d\nRow: %d\n", i, j);
 		return (1);
 	}
 	return (0);
 }
 
+/**
+ * @brief Check the current char c is allowed by cub3d system.
+ *
+ * @param c: the current character.
+ * @return int: 1 if an error occurs, else 0.
+ */
 int	is_mapable(int c)
 {
 	if (c != 'N' && c != 'S' && c != 'E' && c != 'W' && c != 'D' && c != '0')
 	{
-		printf("ERROR: This character is not allowed: %c\n", c);
+		printf("ERROR\nThis character is not allowed: %c\n", c);
 		return (1);
 	}
 	return (0);
 }
 
+/**
+ * @brief Goes through the map and call is_mapable, border_map & check_player
+ * to check the validity of the map.
+ *
+ * @param data The structure of all the parsing system.
+ * @return int: 1 if an error occurs, else 0.
+ */
 int	check_map(t_info_data *data)
 {
 	int	i;
