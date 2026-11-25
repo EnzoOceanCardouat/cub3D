@@ -6,12 +6,22 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 10:43:52 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/23 16:16:16 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 14:05:03 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "parsing.h"
+
+static void	init_game(t_cube *game, t_info_data *data)
+{
+	game->map = data->space_map;
+	game->time = 0;
+	game->data = data;
+	game->var.g = 0;
+	game->map_h = data->map_length + 2;
+	game->map_w = data->map_width + 1;
+}
 
 static void	init_texture(t_cube *game, t_info_data *data)
 {
@@ -42,14 +52,11 @@ static void	init_cube(t_cube *game, t_info_data *data)
 	if (!game->image)
 		freebox(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->image, 0, 0);
-	game->map = data->map;
-	game->time = 0;
-	game->data = data;
+	init_game(game, data);
 	init_texture(game, data);
 	init_player(&game->player, game);
 	load_texture(game);
 	mlx_set_fps_goal(game->mlx, 30);
-	game->var.g = 0;
 }
 
 int	main(int ac, char **av)

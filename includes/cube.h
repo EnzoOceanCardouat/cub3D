@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/23 14:09:42 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 13:29:35 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_cube
 	mlx_color	wall;
 	t_var		var;
 	t_info_data	*data;
+	int			map_h;
+	int			map_w;
 }	t_cube;
 
 /* hook.c */
