@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:36:27 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/23 11:13:44 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 13:31:51 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	touch(float px, float py, t_cube *game)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
-	if (x >= WIDTH / BLOCK || y >= HEIGHT / BLOCK || x < 0 || y < 0)
+	if (x < 0 || y < 0 || x >= game->map_w || y >= game->map_h)
 		return (true);
 	if (game->map[y][x] == 'D')
 	{
@@ -41,7 +41,7 @@ bool	touch(float px, float py, t_cube *game)
 		else
 			return (true);
 	}
-	if (game->map[y][x] == '1')
+	if (game->map[y][x] == '1' || game->map[y][x] == ' ')
 		return (true);
 	else
 		return (false);

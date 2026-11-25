@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 10:43:52 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/23 16:16:16 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 13:30:08 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	init_cube(t_cube *game, t_info_data *data)
 	if (!game->image)
 		freebox(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->image, 0, 0);
-	game->map = data->map;
+	game->map = data->space_map;
 	game->time = 0;
 	game->data = data;
 	init_texture(game, data);
@@ -50,6 +50,8 @@ static void	init_cube(t_cube *game, t_info_data *data)
 	load_texture(game);
 	mlx_set_fps_goal(game->mlx, 30);
 	game->var.g = 0;
+	game->map_h = data->map_length + 2;
+	game->map_w = data->map_width + 1;
 }
 
 int	main(int ac, char **av)
