@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:34:54 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 16:45:06 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,6 @@ void	init_pos_player(t_player *player, t_cube *game)
 		}
 		i++;
 	}
-}
-
-void	init_player(t_player *player, t_cube *game)
-{
-	init_pos_player(player, game);
-	if (player->spawn_direction == 'N')
-		player->angle = (3 * M_PI / 2);
-	else if (player->spawn_direction == 'S')
-		player->angle = (M_PI / 2);
-	else if (player->spawn_direction == 'W')
-		player->angle = M_PI;
-	else if (player->spawn_direction == 'E')
-		player->angle = 0;
-	player->w = false;
-	player->s = false;
-	player->a = false;
-	player->d = false;
-	player->left = false;
-	player->right = false;
-	player->spawn = false;
-	player->m = false;
 }
 
 void	w_s_move(t_player *plyr, t_cube *game)
@@ -105,6 +84,20 @@ void	a_d_move(t_player *plyr, t_cube *game)
 	}
 }
 
+void	is_focus(t_player *player, t_cube game, int *mx, int *my)
+{
+	if (!game.focus)
+		(void)mx;
+	if (!game.focus)
+		(void)my;
+	if (game.focus)
+	{
+		mlx_mouse_get_pos(game.mlx, mx, my);
+		player->angle += (*mx - WIDTH / 2) * MOUSE_SENS;
+		mlx_mouse_move(game.mlx, game.window, WIDTH / 2, HEIGHT / 2);
+	}
+}
+
 void	move_player(t_player *player, t_cube game)
 {
 	double	dt;
@@ -114,9 +107,7 @@ void	move_player(t_player *player, t_cube game)
 	dt = get_dt();
 	player->var.speed = 50 * dt;
 	player->var.angle_speed = 2 * dt;
-	mlx_mouse_get_pos(game.mlx, &mx, &my);
-	player->angle += (mx - WIDTH / 2) * MOUSE_SENS;
-	mlx_mouse_move(game.mlx, game.window, WIDTH / 2, HEIGHT / 2);
+	is_focus(player, game, &mx, &my);
 	if (player->left)
 		player->angle -= player->var.angle_speed;
 	if (player->right)

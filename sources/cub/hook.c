@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:32:24 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/17 19:11:29 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/11/25 16:33:46 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	key_hook(int key, void *param)
 void	window_hook(int key, void *param)
 {
 	if (key == 0)
-		mlx_loop_end((mlx_context)param);
+		mlx_loop_end(((t_cube *)param)->mlx);
+	else if (key == 5)
+		((t_cube *)param)->focus = true;
+	else if (key == 7)
+		((t_cube *)param)->focus = false;
 }
 
 void	key_press(int key, void *_player)

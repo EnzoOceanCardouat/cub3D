@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:44:39 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/23 14:09:13 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 16:15:13 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ int	get_tex_info(t_cube *game)
 
 void	error_file(char *path, t_cube *game)
 {
-	printf("ERROR, %s file does not exist.\n", path);
+	printf("ERROR\n %s file does not exist.\n", path);
 	freebox(game);
 }

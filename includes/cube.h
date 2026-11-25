@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/25 13:29:35 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 16:45:31 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_cube
 	t_info_data	*data;
 	int			map_h;
 	int			map_w;
+	bool		focus;
 }	t_cube;
 
 /* hook.c */
@@ -123,8 +124,8 @@ bool	file_exists(const char *path);
 void	error_file(char *path, t_cube *game);
 
 /* player.c */
-void	init_player(t_player *player, t_cube *game);
 void	move_player(t_player *player, t_cube game);
+void	init_pos_player(t_player *player, t_cube *game);
 
 /* rayCasting.c */
 bool	touch(float px, float py, t_cube *game);
