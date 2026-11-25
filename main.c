@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 10:43:52 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/11/25 14:05:03 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/25 16:46:10 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ static void	init_texture(t_cube *game, t_info_data *data)
 	game->west_texture = data->west_texture;
 	game->east_texture = data->east_texture;
 	game->door_texture = data->door_texture;
+}
+
+static void	init_player(t_player *player, t_cube *game)
+{
+	init_pos_player(player, game);
+	if (player->spawn_direction == 'N')
+		player->angle = (3 * M_PI / 2);
+	else if (player->spawn_direction == 'S')
+		player->angle = (M_PI / 2);
+	else if (player->spawn_direction == 'W')
+		player->angle = M_PI;
+	else if (player->spawn_direction == 'E')
+		player->angle = 0;
+	player->w = false;
+	player->s = false;
+	player->a = false;
+	player->d = false;
+	player->left = false;
+	player->right = false;
+	player->spawn = false;
+	player->m = false;
 }
 
 static void	init_cube(t_cube *game, t_info_data *data)
