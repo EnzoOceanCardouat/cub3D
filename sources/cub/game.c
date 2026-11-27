@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:14:08 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/25 13:03:55 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/27 10:55:30 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,35 @@ static float	fix_distance(float x1, float y1, t_cube *game)
 	return (fix_dist);
 }
 
+static void	march_ray(t_cube *g)
+{
+	float	px;
+	float	py;
+
+	while (!touch(g->var.ray_x, g->var.ray_y, g))
+	{
+		px = g->var.ray_x;
+		py = g->var.ray_y;
+		g->var.ray_x += g->var.cos_angle;
+		g->var.ray_y += g->var.sin_angle;
+		if ((int)(px / BLOCK) != (int)(g->var.ray_x / BLOCK)
+			&& (int)(py / BLOCK) != (int)(g->var.ray_y / BLOCK))
+		{
+			if (touch(g->var.ray_x, py, g))
+				g->var.ray_y = py;
+			else if (touch(px, g->var.ray_y, g))
+				g->var.ray_x = px;
+		}
+	}
+}
+
 static void	render_3d(t_player *player, t_cube *game, float start_x, int i)
 {
 	game->var.cos_angle = cos(start_x);
 	game->var.sin_angle = sin(start_x);
 	game->var.ray_x = player->x;
 	game->var.ray_y = player->y;
-	while (!touch(game->var.ray_x, game->var.ray_y, game))
-	{
-		game->var.ray_x += game->var.cos_angle;
-		game->var.ray_y += game->var.sin_angle;
-	}
+	march_ray(game);
 	game->var.dist = fix_distance(player->x, player->y, game);
 	game->var.height = (BLOCK / game->var.dist) * (WIDTH / 2);
 	game->var.top = (HEIGHT - game->var.height) / 2;

@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:34:54 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/25 16:45:06 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/27 11:12:08 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	w_s_move(t_player *plyr, t_cube *game)
 	{
 		plyr->var.new_x = plyr->x + plyr->var.cos_angle * plyr->var.speed;
 		plyr->var.new_y = plyr->y + plyr->var.sin_angle * plyr->var.speed;
-		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		if (!blocked(plyr->var.new_x, plyr->var.new_y, game))
 		{
 			plyr->x = plyr->var.new_x;
 			plyr->y = plyr->var.new_y;
@@ -52,7 +52,7 @@ void	w_s_move(t_player *plyr, t_cube *game)
 	{
 		plyr->var.new_x = plyr->x - plyr->var.cos_angle * plyr->var.speed;
 		plyr->var.new_y = plyr->y - plyr->var.sin_angle * plyr->var.speed;
-		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		if (!blocked(plyr->var.new_x, plyr->var.new_y, game))
 		{
 			plyr->x = plyr->var.new_x;
 			plyr->y = plyr->var.new_y;
@@ -66,7 +66,7 @@ void	a_d_move(t_player *plyr, t_cube *game)
 	{
 		plyr->var.new_x = plyr->x - plyr->var.sin_angle * plyr->var.speed;
 		plyr->var.new_y = plyr->y + plyr->var.cos_angle * plyr->var.speed;
-		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		if (!blocked(plyr->var.new_x, plyr->var.new_y, game))
 		{
 			plyr->x = plyr->var.new_x;
 			plyr->y = plyr->var.new_y;
@@ -76,7 +76,7 @@ void	a_d_move(t_player *plyr, t_cube *game)
 	{
 		plyr->var.new_x = plyr->x + plyr->var.sin_angle * plyr->var.speed;
 		plyr->var.new_y = plyr->y - plyr->var.cos_angle * plyr->var.speed;
-		if (!touch(plyr->var.new_x, plyr->var.new_y, game))
+		if (!blocked(plyr->var.new_x, plyr->var.new_y, game))
 		{
 			plyr->x = plyr->var.new_x;
 			plyr->y = plyr->var.new_y;

@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:36:27 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/25 13:31:51 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/27 11:11:35 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,27 @@ bool	p_close_to_door(t_cube *game, int m_y, int m_x)
 		return (false);
 }
 
-bool	touch(float px, float py, t_cube *game)
+bool	blocked(float x, float y, t_cube *game)
+{
+	if (touch(x - 4, y - 4, game))
+		return (true);
+	else if (touch(x + 4, y - 4, game))
+		return (true);
+	else if (touch(x - 4, y + 4, game))
+		return (true);
+	else if (touch(x + 4, y + 4, game))
+		return (true);
+	else
+		return (false);
+}
+
+bool	touch(float rx, float ry, t_cube *game)
 {
 	int	x;
 	int	y;
 
-	x = px / BLOCK;
-	y = py / BLOCK;
+	x = rx / BLOCK;
+	y = ry / BLOCK;
 	if (x < 0 || y < 0 || x >= game->map_w || y >= game->map_h)
 		return (true);
 	if (game->map[y][x] == 'D')

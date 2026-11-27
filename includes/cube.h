@@ -6,7 +6,7 @@
 /*   By: ecardoua <ecardoua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 10:57:16 by ecardoua          #+#    #+#             */
-/*   Updated: 2026/11/25 16:45:31 by ecardoua         ###   ########.fr       */
+/*   Updated: 2026/11/27 11:11:43 by ecardoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	init_pos_player(t_player *player, t_cube *game);
 /* rayCasting.c */
 bool	touch(float px, float py, t_cube *game);
 bool	p_close_to_door(t_cube *game, int m_y, int m_x);
+bool	blocked(float x, float y, t_cube *game);
 
 /* texture.c */
 void	load_texture(t_cube *game);
